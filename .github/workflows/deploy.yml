@@ -45,7 +45,7 @@ jobs:
         run: flutter test
 
       - name: Build Web Application
-        run: flutter build web --release --base-href "/${{ github.event.repository.name }}/"
+        run: flutter build web --release --base-href "/sanjaybenita/"
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
