@@ -5,6 +5,7 @@ import '../../../core/theme/app_colors.dart';
 import '../../../core/utils/responsive.dart';
 import '../../../data/models/wedding_config_model.dart';
 import '../viewmodels/audio_viewmodel.dart';
+import '../viewmodels/language_viewmodel.dart';
 import 'theme_selector_dialog.dart';
 
 class WeddingNavBar extends ConsumerWidget {
@@ -27,6 +28,8 @@ class WeddingNavBar extends ConsumerWidget {
     final isDesktop = screenWidth >= 1024;
     final isCompact = screenWidth < 700;
     final audioState = ref.watch(audioViewModelProvider);
+    final currentLang = ref.watch(languageProvider);
+    final isTamil = currentLang == AppLanguage.tamil;
 
     return Container(
       height: 70,
@@ -79,13 +82,49 @@ class WeddingNavBar extends ConsumerWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               if (isDesktop) ...[
-                _buildNavItem('Couple', () => onNavigate(1)),
-                _buildNavItem('Story', () => onNavigate(2)),
-                _buildNavItem('Events', () => onNavigate(3)),
-                _buildNavItem('Gallery', () => onNavigate(4)),
-                _buildNavItem('Venue', () => onNavigate(5)),
+                _buildNavItem(isTamil ? 'மணமக்கள்' : 'Couple', () => onNavigate(1)),
+                _buildNavItem(isTamil ? 'காதல் கதை' : 'Story', () => onNavigate(2)),
+                _buildNavItem(isTamil ? 'நிகழ்வுகள்' : 'Events', () => onNavigate(3)),
+                _buildNavItem(isTamil ? 'படங்கள்' : 'Gallery', () => onNavigate(4)),
+                _buildNavItem(isTamil ? 'இடம்' : 'Venue', () => onNavigate(5)),
                 const SizedBox(width: 6),
               ],
+
+              // Language Switcher Button (English / தமிழ்)
+              Tooltip(
+                message: isTamil ? 'Switch to English' : 'தமிழுக்கு மாறவும்',
+                child: TextButton(
+                  onPressed: () =>
+                      ref.read(languageProvider.notifier).toggleLanguage(),
+                  style: TextButton.styleFrom(
+                    backgroundColor: AppColors.antiqueGold.withValues(alpha: 0.15),
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      side: BorderSide(
+                        color: AppColors.antiqueGold.withValues(alpha: 0.6),
+                        width: 1,
+                      ),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.language_rounded, size: 16, color: AppColors.primaryMaroon),
+                      const SizedBox(width: 4),
+                      Text(
+                        isTamil ? 'ENG' : 'தமிழ்',
+                        style: GoogleFonts.cinzel(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.primaryMaroon,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(width: 4),
 
               // Theme Switcher Button
               Tooltip(
@@ -136,7 +175,7 @@ class WeddingNavBar extends ConsumerWidget {
                   onPressed: onDownloadPdf,
                   icon: const Icon(Icons.download_rounded, size: 16),
                   label: Text(
-                    'DOWNLOAD INVITATION',
+                    isTamil ? 'அழைப்பிதழ் பதிவிறக்குக' : 'DOWNLOAD INVITATION',
                     style: GoogleFonts.cinzel(
                       fontSize: 11,
                       fontWeight: FontWeight.bold,

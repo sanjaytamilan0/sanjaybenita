@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sanjay_and_benita/core/theme/app_colors.dart';
 import 'package:sanjay_and_benita/core/utils/url_helper.dart';
-import 'package:sanjay_and_benita/data/models/wedding_config_model.dart';
 import 'package:sanjay_and_benita/data/repositories/wedding_config_repository.dart';
 import 'package:sanjay_and_benita/data/services/pdf_invitation_service.dart';
 import 'package:sanjay_and_benita/features/couple/views/couple_section.dart';
@@ -16,6 +15,7 @@ import 'package:sanjay_and_benita/features/home/widgets/hero_section.dart';
 import 'package:sanjay_and_benita/features/home/widgets/invitation_message_section.dart';
 import 'package:sanjay_and_benita/features/home/widgets/footer_section.dart';
 import 'package:sanjay_and_benita/features/home/viewmodels/theme_viewmodel.dart';
+import 'package:sanjay_and_benita/features/home/viewmodels/language_viewmodel.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -26,7 +26,6 @@ class HomeScreen extends ConsumerStatefulWidget {
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   final ScrollController _scrollController = ScrollController();
-  final WeddingConfig config = WeddingConfigRepository.data;
 
   // Global Keys for smooth scrolling navigation
   final GlobalKey _invitationKey = GlobalKey();
@@ -72,6 +71,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   void _downloadPdf() async {
     final messenger = ScaffoldMessenger.of(context);
+    final currentLang = ref.read(languageProvider);
+    final config = WeddingConfigRepository.getConfig(currentLang);
     try {
       messenger.showSnackBar(
         SnackBar(
@@ -95,6 +96,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   }
 
   void _shareWhatsApp() {
+    final currentLang = ref.read(languageProvider);
+    final config = WeddingConfigRepository.getConfig(currentLang);
     final currentUrl = Uri.base.toString();
     final message = '${config.whatsappShareMessage}\n$currentUrl';
     UrlHelper.openWhatsApp(phoneOrEmpty: '', message: message);
@@ -108,8 +111,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Watch theme changes to trigger full UI rebuild
+    // Watch theme and language changes to trigger full UI rebuild
     ref.watch(weddingThemeStateProvider);
+    final currentLang = ref.watch(languageProvider);
+    final config = WeddingConfigRepository.getConfig(currentLang);
 
     return Scaffold(
       body: Stack(
