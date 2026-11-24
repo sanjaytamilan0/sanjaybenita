@@ -10,11 +10,13 @@ import '../../countdown/widgets/countdown_widget.dart';
 class HeroSection extends ConsumerWidget {
   final WeddingConfig config;
   final VoidCallback onExploreClick;
+  final VoidCallback? onPreviewInvitation;
 
   const HeroSection({
     super.key,
     required this.config,
     required this.onExploreClick,
+    this.onPreviewInvitation,
   });
 
   @override
@@ -225,7 +227,40 @@ class HeroSection extends ConsumerWidget {
                       delay: Duration(milliseconds: 700),
                       child: CountdownWidget(isCompact: false),
                     ),
-                    const SizedBox(height: 36),
+                    const SizedBox(height: 24),
+
+                    // Preview Invitation Button with Couple Background
+                    if (onPreviewInvitation != null)
+                      FadeSlideEntrance(
+                        delay: const Duration(milliseconds: 780),
+                        child: ElevatedButton.icon(
+                          onPressed: onPreviewInvitation,
+                          icon: const Icon(Icons.mark_email_read_outlined, size: 20),
+                          label: Text(
+                            'VIEW INVITATION CARD',
+                            style: GoogleFonts.cinzel(
+                              fontSize: isMobile ? 12 : 14,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 1.5,
+                            ),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColors.primaryMaroon,
+                            foregroundColor: Colors.white,
+                            padding: EdgeInsets.symmetric(
+                              horizontal: isMobile ? 22 : 32,
+                              vertical: isMobile ? 12 : 16,
+                            ),
+                            elevation: 5,
+                            shadowColor: AppColors.primaryMaroon.withValues(alpha: 0.4),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                              side: BorderSide(color: AppColors.antiqueGold, width: 1.5),
+                            ),
+                          ),
+                        ),
+                      ),
+                    const SizedBox(height: 28),
 
                     // Scroll Down Prompt
                     FadeSlideEntrance(

@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:sanjay_and_benita/core/theme/app_colors.dart';
 import 'package:sanjay_and_benita/core/utils/url_helper.dart';
 import 'package:sanjay_and_benita/data/repositories/wedding_config_repository.dart';
-import 'package:sanjay_and_benita/data/services/pdf_invitation_service.dart';
 import 'package:sanjay_and_benita/features/couple/views/couple_section.dart';
 import 'package:sanjay_and_benita/features/love_story/views/love_story_section.dart';
 import 'package:sanjay_and_benita/features/events/views/events_section.dart';
 import 'package:sanjay_and_benita/features/gallery/views/gallery_section.dart';
 import 'package:sanjay_and_benita/features/contact/views/contact_location_section.dart';
+import 'package:sanjay_and_benita/features/home/widgets/invitation_preview_dialog.dart';
 import 'package:sanjay_and_benita/features/home/widgets/wedding_nav_bar.dart';
 import 'package:sanjay_and_benita/features/home/widgets/hero_section.dart';
 import 'package:sanjay_and_benita/features/home/widgets/invitation_message_section.dart';
@@ -69,30 +67,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     }
   }
 
-  void _downloadPdf() async {
-    final messenger = ScaffoldMessenger.of(context);
+  void _showInvitationPreview() {
     final currentLang = ref.read(languageProvider);
     final config = WeddingConfigRepository.getConfig(currentLang);
-    try {
-      messenger.showSnackBar(
-        SnackBar(
-          content: Text(
-            'Preparing your personalized wedding invitation PDF...',
-            style: GoogleFonts.cormorantGaramond(fontSize: 16),
-          ),
-          backgroundColor: AppColors.primaryMaroon,
-          duration: const Duration(seconds: 2),
-        ),
-      );
-      await PdfInvitationService.downloadInvitationPdf(config);
-    } catch (e) {
-      messenger.showSnackBar(
-        SnackBar(
-          content: Text('Could not generate PDF: $e'),
-          backgroundColor: Colors.redAccent,
-        ),
-      );
-    }
+    InvitationPreviewDialog.show(context, config);
+  }
+
+  void _downloadPdf() async {
+    _showInvitationPreview();
   }
 
   void _shareWhatsApp() {
@@ -127,6 +109,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 HeroSection(
                   config: config,
                   onExploreClick: () => _scrollToSection(0),
+                  onPreviewInvitation: _showInvitationPreview,
                 ),
                 Container(
                   key: _invitationKey,

@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
@@ -26,6 +27,13 @@ class PdfInvitationService {
         ? await PdfGoogleFonts.notoSerifTamilBold()
         : await PdfGoogleFonts.cormorantGaramondBold();
 
+    // Load couple background image
+    pw.MemoryImage? coupleImage;
+    try {
+      final imageBytes = await rootBundle.load('assets/images/couple.jpg');
+      coupleImage = pw.MemoryImage(imageBytes.buffer.asUint8List());
+    } catch (_) {}
+
     pdf.addPage(
       pw.Page(
         pageFormat: PdfPageFormat.a4,
@@ -38,10 +46,23 @@ class PdfInvitationService {
               borderRadius: pw.BorderRadius.circular(16),
             ),
             padding: const pw.EdgeInsets.all(28),
-            child: pw.Column(
-              crossAxisAlignment: pw.CrossAxisAlignment.center,
-              mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+            child: pw.Stack(
               children: [
+                if (coupleImage != null)
+                  pw.Positioned.fill(
+                    child: pw.Opacity(
+                      opacity: 0.12,
+                      child: pw.Image(
+                        coupleImage,
+                        fit: pw.BoxFit.cover,
+                        alignment: pw.Alignment.topCenter,
+                      ),
+                    ),
+                  ),
+                pw.Column(
+                  crossAxisAlignment: pw.CrossAxisAlignment.center,
+                  mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                  children: [
                 pw.Column(
                   children: [
                     pw.Text(
@@ -194,7 +215,9 @@ class PdfInvitationService {
                 pw.Column(
                   children: [
                     pw.Text(
-                      'Warmly Invited by Sanjay & Benita',
+                      hasTamil
+                          ? 'அன்புடன் அழைக்கும் சஞ்சய் & பெனிட்டா'
+                          : 'Warmly Invited by Sanjay & Benita',
                       style: pw.TextStyle(
                         font: boldFont,
                         fontSize: 13,
@@ -205,8 +228,10 @@ class PdfInvitationService {
                 ),
               ],
             ),
-          );
-        },
+          ],
+        ),
+      );
+    },
       ),
     );
 
