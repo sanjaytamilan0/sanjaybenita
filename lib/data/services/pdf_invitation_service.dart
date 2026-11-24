@@ -12,9 +12,19 @@ class PdfInvitationService {
     final ivoryBg = PdfColor.fromHex('FFF9EF');
     final darkBrown = PdfColor.fromHex('38251F');
 
-    final titleFont = await PdfGoogleFonts.cinzelDecorativeBold();
-    final bodyFont = await PdfGoogleFonts.cormorantGaramondRegular();
-    final boldFont = await PdfGoogleFonts.cormorantGaramondBold();
+    // Use Noto Serif Tamil / Noto Sans Tamil for full Tamil & English glyph support
+    final hasTamil = config.groomName.contains(RegExp(r'[\u0B80-\u0BFF]')) ||
+        config.invitationMessage.contains(RegExp(r'[\u0B80-\u0BFF]'));
+
+    final pw.Font titleFont = hasTamil
+        ? await PdfGoogleFonts.notoSerifTamilBold()
+        : await PdfGoogleFonts.cinzelDecorativeBold();
+    final pw.Font bodyFont = hasTamil
+        ? await PdfGoogleFonts.notoSerifTamilRegular()
+        : await PdfGoogleFonts.cormorantGaramondRegular();
+    final pw.Font boldFont = hasTamil
+        ? await PdfGoogleFonts.notoSerifTamilBold()
+        : await PdfGoogleFonts.cormorantGaramondBold();
 
     pdf.addPage(
       pw.Page(
