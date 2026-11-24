@@ -8,10 +8,12 @@ import '../../../shared/widgets/section_header.dart';
 
 class InvitationMessageSection extends StatelessWidget {
   final WeddingConfig config;
+  final VoidCallback? onPreviewInvitation;
 
   const InvitationMessageSection({
     super.key,
     required this.config,
+    this.onPreviewInvitation,
   });
 
   @override
@@ -167,6 +169,30 @@ class InvitationMessageSection extends StatelessWidget {
             ),
           ),
         ),
+        if (onPreviewInvitation != null) ...[
+          const SizedBox(height: 20),
+          ElevatedButton.icon(
+            onPressed: onPreviewInvitation,
+            icon: const Icon(Icons.mark_email_read_outlined, size: 18),
+            label: Text(
+              'PREVIEW INVITATION CARD',
+              style: GoogleFonts.cinzel(
+                fontSize: isMobile ? 12 : 13,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 1.2,
+              ),
+            ),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.primaryMaroon,
+              foregroundColor: Colors.white,
+              padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 12),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(24),
+                side: BorderSide(color: AppColors.antiqueGold, width: 1.2),
+              ),
+            ),
+          ),
+        ],
       ],
     );
   }

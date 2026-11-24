@@ -196,43 +196,50 @@ class _InvitationPreviewDialogState
     return Container(
       margin: EdgeInsets.all(isMobile ? 12 : 20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.surfaceCream,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
           color: AppColors.antiqueGold,
-          width: 1.8,
+          width: 2.0,
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.08),
-            blurRadius: 15,
-            offset: const Offset(0, 6),
+            color: Colors.black.withValues(alpha: 0.12),
+            blurRadius: 18,
+            offset: const Offset(0, 8),
           ),
         ],
       ),
       clipBehavior: Clip.antiAlias,
       child: Stack(
         children: [
-          // Background Image of Couple with soft luxury overlay
+          // Background Image of Couple (Bride and Groom) with clean luxury tint
           Positioned.fill(
-            child: Opacity(
-              opacity: 0.16, // Watermark background style
-              child: Image.asset(
-                'assets/images/couple.jpg',
-                fit: BoxFit.cover,
-                alignment: Alignment.topCenter,
+            child: Image.asset(
+              'assets/images/couple.jpg',
+              fit: BoxFit.cover,
+              alignment: Alignment.topCenter,
+              errorBuilder: (context, error, stackTrace) => Container(
+                color: AppColors.surfaceCream,
               ),
             ),
           ),
 
-          // Luxury Inner Decorative Border
+          // Semi-transparent luxury ivory parchment overlay so text is crisp and readable
           Positioned.fill(
             child: Container(
-              margin: const EdgeInsets.all(8),
+              color: Colors.white.withValues(alpha: 0.82),
+            ),
+          ),
+
+          // Luxury Inner Decorative Gold Border
+          Positioned.fill(
+            child: Container(
+              margin: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                 border: Border.all(
-                  color: AppColors.antiqueGold.withValues(alpha: 0.4),
-                  width: 1.0,
+                  color: AppColors.antiqueGold.withValues(alpha: 0.7),
+                  width: 1.5,
                 ),
                 borderRadius: BorderRadius.circular(10),
               ),

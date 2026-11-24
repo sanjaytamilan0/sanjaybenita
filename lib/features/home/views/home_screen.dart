@@ -113,7 +113,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 ),
                 Container(
                   key: _invitationKey,
-                  child: InvitationMessageSection(config: config),
+                  child: InvitationMessageSection(
+                    config: config,
+                    onPreviewInvitation: _showInvitationPreview,
+                  ),
                 ),
                 Container(
                   key: _coupleKey,
