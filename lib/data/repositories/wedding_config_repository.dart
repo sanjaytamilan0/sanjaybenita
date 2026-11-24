@@ -187,10 +187,10 @@ class WeddingConfigRepository {
     groomFullName: 'சஞ்சய்',
     groomTitle: 'மணமகன்',
     groomBio:
-        'அன்பையும் பாசத்தையும் இதயத்தில் ஏந்தி, பெனிதாவுடன் தன் இனிய வாழ்க்கைப் பயணத்தைத் தொடங்கத் தயாராக இருக்கும் அன்பான மணமகன்.',
+        'அன்பையும் பாசத்தையும் இதயத்தில் ஏந்தி, பெனிட்டாவுடன் தன் இனிய வாழ்க்கைப் பயணத்தைத் தொடங்கத் தயாராக இருக்கும் அன்பான மணமகன்.',
     groomParents: '',
-    brideName: 'பெனிதா',
-    brideFullName: 'பெனிதா',
+    brideName: 'பெனிட்டா',
+    brideFullName: 'பெனிட்டா',
     brideTitle: 'மணமகள்',
     brideBio:
         'அன்பும் அமைதியும் முகத்தில் தவழ, இனிமையான புன்னகையுடன் இல்லற வாழ்வில் அடியெடுத்து வைத்து சஞ்சயுடன் இணையும் அழகிய மணமகள்.',
@@ -200,7 +200,7 @@ class WeddingConfigRepository {
     invitationMessage:
         'இறைவனின் திருவருளோடும், எங்கள் குடும்பத்தாரின் ஆசிகளோடும் நாங்கள் இல்லற வாழ்வில் இணையும் நன்னாளில், தங்களை அன்போடு அழைக்கின்றோம்.\n\nதாங்கள் வருகை தந்து எங்களை ஆசீர்வதிக்குமாறு அன்புடன் வேண்டுகிறோம்.',
     familyInvitationMessage:
-        'அன்புடன் அழைக்கும்,\nசஞ்சய் & பெனிதா',
+        'அன்புடன் அழைக்கும்,\nசஞ்சய் & பெனிட்டா',
     mainWeddingDate: DateTime(2027, 4, 26, 10, 30),
     events: [
       WeddingEvent(
@@ -303,7 +303,7 @@ class WeddingConfigRepository {
       ),
       const GalleryItem(
         id: 'g5',
-        title: 'சஞ்சய் & பெனிதா',
+        title: 'சஞ்சய் & பெனிட்டா',
         caption: 'இரு இதயங்களின் எல்லையற்ற ஆனந்த சங்கமம்.',
         category: 'மணமக்கள்',
         assetPath: 'assets/images/couple.jpg',
@@ -312,7 +312,7 @@ class WeddingConfigRepository {
       const GalleryItem(
         id: 'g6',
         title: 'அழகிய மணமகள்',
-        caption: 'பட்டுச் சேலையில் புன்னகை பூக்கும் அழகிய பெனிதா.',
+        caption: 'பட்டுச் சேலையில் புன்னகை பூக்கும் அழகிய பெனிட்டா.',
         category: 'மணமகள்',
         assetPath: 'assets/images/bride.jpg',
         fallbackGradientKey: 'deep_maroon',
@@ -341,8 +341,8 @@ class WeddingConfigRepository {
     primaryGoogleMapsUrl:
         'https://www.google.com/maps/search/?api=1&query=8CG9%2B373+Thadikkarankonam+Tamil+Nadu',
     whatsappShareMessage:
-        '✨ சஞ்சய் ❤️ பெனிதா திருமண அழைப்பிதழ் ✨\n\n'
-        'சஞ்சய் மற்றும் பெனிதா இணையும் திருமண விழாவிற்கு தங்களை அன்போடு அழைக்கின்றோம்!\n\n'
+        '✨ சஞ்சய் ❤️ பெனிட்டா திருமண அழைப்பிதழ் ✨\n\n'
+        'சஞ்சய் மற்றும் பெனிட்டா இணையும் திருமண விழாவிற்கு தங்களை அன்போடு அழைக்கின்றோம்!\n\n'
         '💍 நிச்சயதார்த்தம்: ஏப்ரல் 25, 2027 (மாலை 5:30)\n'
         '💒 திருமண நல்வைபவம்: ஏப்ரல் 26, 2027 (காலை 10:30)\n'
         '🎉 திருமண வரவேற்பு: ஏப்ரல் 26, 2027 (மாலை 7:00, பெரிய தெரு, களக்காடு)\n\n'
