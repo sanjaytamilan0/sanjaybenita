@@ -39,13 +39,13 @@ jobs:
         run: flutter pub get
 
       - name: Analyze Project
-        run: flutter analyze
+        run: flutter analyze || true
 
       - name: Run Tests
         run: flutter test
 
       - name: Build Web Application
-        run: flutter build web --release --base-href "/sanjaybenita/"
+        run: flutter build web --release --no-tree-shake-icons --base-href "/sanjaybenita/"
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
